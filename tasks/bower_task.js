@@ -39,6 +39,14 @@ module.exports = function(grunt) {
       .on('end', callback);
   }
 
+  function list(callback) {
+    bower.commands.list()
+      .on('data',log)
+      .on('error',fail)
+      .on('end',callback)
+
+  }
+
   function copy(options, callback) {
     var bowerAssets = new BowerAssets(bower, options.cwd);
     bowerAssets.once('data', function(assets) {
@@ -61,6 +69,7 @@ module.exports = function(grunt) {
         layout: 'byType',
         install: true,
         verbose: false,
+        list: false,
         copy: true
       }),
       add = function(name, fn) {
@@ -106,4 +115,12 @@ module.exports = function(grunt) {
 
     async.series(tasks, done);
   });
+
+
+
+
+
+
+
+
 };
